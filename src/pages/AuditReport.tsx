@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import ScoreRing from "@/components/audit/ScoreRing";
 import AuditSection, { BulletList, SubHeading } from "@/components/audit/AuditSection";
-import { generateMockAudit, type AuditResult } from "@/lib/generate-mock-audit";
+import { type AuditResult } from "@/lib/generate-mock-audit";
 import { exportReportAsPdf } from "@/lib/pdf-export";
 import type { AuditFormData } from "@/components/AuditForm";
 
@@ -16,22 +16,28 @@ const AuditReport = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const formData = location.state?.formData as AuditFormData | undefined;
+  const auditResult = location.state?.auditResult as AuditResult | undefined;
   const [loading, setLoading] = useState(true);
   const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
-    if (!formData) {
+    if (!formData || !auditResult) {
       navigate("/");
       return;
     }
-    const timer = setTimeout(() => setLoading(false), 2500);
+    // Brief delay for smooth transition
+    const timer = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(timer);
-  }, [formData, navigate]);
+  }, [formData, auditResult, navigate]);
 
   const audit = useMemo<AuditResult | null>(() => {
-    if (!formData) return null;
-    return generateMockAudit(formData);
-  }, [formData]);
+    if (!formData || !auditResult) return null;
+    return {
+      ...auditResult,
+      businessName: formData.businessName,
+      websiteUrl: formData.websiteUrl,
+    };
+  }, [formData, auditResult]);
 
   const handleExport = async () => {
     if (!audit) return;

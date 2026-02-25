@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
-
+import { useToast } from "@/hooks/use-toast";
+import { runAudit } from "@/lib/run-audit";
 export interface AuditFormData {
   businessName: string;
   websiteUrl: string;
@@ -17,6 +18,7 @@ export interface AuditFormData {
 
 const AuditForm = forwardRef<HTMLDivElement>((_, ref) => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState<AuditFormData>({
     businessName: "",
@@ -33,9 +35,19 @@ const AuditForm = forwardRef<HTMLDivElement>((_, ref) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate processing delay
-    await new Promise((r) => setTimeout(r, 2000));
-    navigate("/report", { state: { formData: form } });
+    try {
+      const auditResult = await runAudit(form);
+      navigate("/report", { state: { formData: form, auditResult } });
+    } catch (err) {
+      console.error("Audit error:", err);
+      toast({
+        title: "Audit Failed",
+        description: err instanceof Error ? err.message : "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const isValid = form.businessName.trim() && form.websiteUrl.trim();
