@@ -14,6 +14,10 @@ export interface AuditFormData {
   tiktok?: string;
   youtubeUrl?: string;
   googleBusinessUrl?: string;
+  twitter?: string;
+  facebook?: string;
+  linkedin?: string;
+  pinterest?: string;
 }
 
 const AuditForm = forwardRef<HTMLDivElement>((_, ref) => {
