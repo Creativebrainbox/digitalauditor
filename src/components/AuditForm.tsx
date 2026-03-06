@@ -129,6 +129,7 @@ const AuditForm = forwardRef<HTMLDivElement>((_, ref) => {
                     value={form.tiktok}
                     onChange={(e) => update("tiktok", e.target.value)}
                   />
+                </div>
                 <div className="space-y-2">
                   <Label htmlFor="twitter">Twitter (X) Username</Label>
                   <Input
