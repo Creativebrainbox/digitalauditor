@@ -9,7 +9,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { businessName, websiteContent, websiteUrl, instagram, tiktok, youtubeUrl, googleBusinessUrl } = await req.json();
+    const { businessName, websiteContent, websiteUrl, instagram, tiktok, youtubeUrl, googleBusinessUrl, twitter, facebook, linkedin, pinterest } = await req.json();
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
