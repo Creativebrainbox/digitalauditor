@@ -129,7 +129,50 @@ const AuditForm = forwardRef<HTMLDivElement>((_, ref) => {
                     value={form.tiktok}
                     onChange={(e) => update("tiktok", e.target.value)}
                   />
+                <div className="space-y-2">
+                  <Label htmlFor="twitter">Twitter (X) Username</Label>
+                  <Input
+                    id="twitter"
+                    placeholder="@username"
+                    value={form.twitter}
+                    onChange={(e) => update("twitter", e.target.value)}
+                  />
                 </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="facebook" className="flex items-center gap-1.5">
+                    <Facebook className="h-4 w-4" /> Facebook Page URL
+                  </Label>
+                  <Input
+                    id="facebook"
+                    placeholder="https://facebook.com/yourpage"
+                    value={form.facebook}
+                    onChange={(e) => update("facebook", e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="linkedin" className="flex items-center gap-1.5">
+                    <Linkedin className="h-4 w-4" /> LinkedIn Page URL
+                  </Label>
+                  <Input
+                    id="linkedin"
+                    placeholder="https://linkedin.com/company/..."
+                    value={form.linkedin}
+                    onChange={(e) => update("linkedin", e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="pinterest">Pinterest Username</Label>
+                <Input
+                  id="pinterest"
+                  placeholder="@username"
+                  value={form.pinterest}
+                  onChange={(e) => update("pinterest", e.target.value)}
+                />
               </div>
 
               <div className="space-y-2">
