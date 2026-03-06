@@ -43,7 +43,7 @@ const AuditReport = () => {
     if (!audit) return;
     setExporting(true);
     try {
-      await exportReportAsPdf("audit-report", audit.businessName);
+      await exportReportAsPdf("audit-report", audit.businessName, audit);
     } finally {
       setExporting(false);
     }
