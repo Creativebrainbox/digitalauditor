@@ -1,6 +1,6 @@
 import { forwardRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, Instagram, Play, MapPin, Youtube, Loader2 } from "lucide-react";
+import { Globe, Instagram, Play, MapPin, Youtube, Loader2, Twitter, Facebook, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
