@@ -22,6 +22,10 @@ Deno.serve(async (req) => {
     const platformsList = [];
     if (instagram) platformsList.push(`Instagram: @${instagram}`);
     if (tiktok) platformsList.push(`TikTok: @${tiktok}`);
+    if (twitter) platformsList.push(`Twitter/X: @${twitter}`);
+    if (facebook) platformsList.push(`Facebook: ${facebook}`);
+    if (linkedin) platformsList.push(`LinkedIn: ${linkedin}`);
+    if (pinterest) platformsList.push(`Pinterest: @${pinterest}`);
     if (youtubeUrl) platformsList.push(`YouTube: ${youtubeUrl}`);
     if (googleBusinessUrl) platformsList.push(`Google Business: ${googleBusinessUrl}`);
 
