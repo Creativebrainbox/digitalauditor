@@ -9,7 +9,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { businessName, websiteContent, websiteUrl, instagram, tiktok, youtubeUrl, googleBusinessUrl } = await req.json();
+    const { businessName, websiteContent, websiteUrl, instagram, tiktok, youtubeUrl, googleBusinessUrl, twitter, facebook, linkedin, pinterest } = await req.json();
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
@@ -22,6 +22,10 @@ Deno.serve(async (req) => {
     const platformsList = [];
     if (instagram) platformsList.push(`Instagram: @${instagram}`);
     if (tiktok) platformsList.push(`TikTok: @${tiktok}`);
+    if (twitter) platformsList.push(`Twitter/X: @${twitter}`);
+    if (facebook) platformsList.push(`Facebook: ${facebook}`);
+    if (linkedin) platformsList.push(`LinkedIn: ${linkedin}`);
+    if (pinterest) platformsList.push(`Pinterest: @${pinterest}`);
     if (youtubeUrl) platformsList.push(`YouTube: ${youtubeUrl}`);
     if (googleBusinessUrl) platformsList.push(`Google Business: ${googleBusinessUrl}`);
 
@@ -48,22 +52,21 @@ You MUST respond with a valid JSON object matching this exact structure (no mark
     "ctaRewrites": [<string array of 3 CTA rewrite examples>]
   },
   "socialMedia": [
-    ${instagram ? `{
-      "platform": "Instagram",
+    ${[
+      { flag: instagram, name: 'Instagram' },
+      { flag: tiktok, name: 'TikTok' },
+      { flag: twitter, name: 'Twitter/X' },
+      { flag: facebook, name: 'Facebook' },
+      { flag: linkedin, name: 'LinkedIn' },
+      { flag: pinterest, name: 'Pinterest' },
+    ].filter(p => p.flag).map((p, i) => `${i > 0 ? ',' : ''}{
+      "platform": "${p.name}",
       "score": <number 0-100>,
-      "bioRewrite": "<suggested bio rewrite>",
+      "bioRewrite": "<suggested bio/about rewrite>",
       "contentImprovements": [<3 strings>],
       "hookExamples": [<3 hook examples tailored to their niche>],
       "engagementSuggestions": [<3 strings>]
-    }` : ''}
-    ${tiktok ? `${instagram ? ',' : ''}{
-      "platform": "TikTok",
-      "score": <number 0-100>,
-      "bioRewrite": "<suggested bio rewrite>",
-      "contentImprovements": [<3 strings>],
-      "hookExamples": [<3 hook examples>],
-      "engagementSuggestions": [<3 strings>]
-    }` : ''}
+    }`).join('\n    ')}
   ],
   ${googleBusinessUrl ? `"googleBusiness": {
     "score": <number 0-100>,

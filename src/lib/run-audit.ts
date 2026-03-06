@@ -29,6 +29,10 @@ export async function runAudit(formData: AuditFormData): Promise<AuditResult> {
       tiktok: formData.tiktok,
       youtubeUrl: formData.youtubeUrl,
       googleBusinessUrl: formData.googleBusinessUrl,
+      twitter: formData.twitter,
+      facebook: formData.facebook,
+      linkedin: formData.linkedin,
+      pinterest: formData.pinterest,
     },
   });
 
