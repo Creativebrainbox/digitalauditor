@@ -31,6 +31,10 @@ const AuditForm = forwardRef<HTMLDivElement>((_, ref) => {
     tiktok: "",
     youtubeUrl: "",
     googleBusinessUrl: "",
+    twitter: "",
+    facebook: "",
+    linkedin: "",
+    pinterest: "",
   });
 
   const update = (key: keyof AuditFormData, value: string) =>
