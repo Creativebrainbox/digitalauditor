@@ -52,22 +52,21 @@ You MUST respond with a valid JSON object matching this exact structure (no mark
     "ctaRewrites": [<string array of 3 CTA rewrite examples>]
   },
   "socialMedia": [
-    ${instagram ? `{
-      "platform": "Instagram",
+    ${[
+      { flag: instagram, name: 'Instagram' },
+      { flag: tiktok, name: 'TikTok' },
+      { flag: twitter, name: 'Twitter/X' },
+      { flag: facebook, name: 'Facebook' },
+      { flag: linkedin, name: 'LinkedIn' },
+      { flag: pinterest, name: 'Pinterest' },
+    ].filter(p => p.flag).map((p, i) => `${i > 0 ? ',' : ''}{
+      "platform": "${p.name}",
       "score": <number 0-100>,
-      "bioRewrite": "<suggested bio rewrite>",
+      "bioRewrite": "<suggested bio/about rewrite>",
       "contentImprovements": [<3 strings>],
       "hookExamples": [<3 hook examples tailored to their niche>],
       "engagementSuggestions": [<3 strings>]
-    }` : ''}
-    ${tiktok ? `${instagram ? ',' : ''}{
-      "platform": "TikTok",
-      "score": <number 0-100>,
-      "bioRewrite": "<suggested bio rewrite>",
-      "contentImprovements": [<3 strings>],
-      "hookExamples": [<3 hook examples>],
-      "engagementSuggestions": [<3 strings>]
-    }` : ''}
+    }`).join('\n    ')}
   ],
   ${googleBusinessUrl ? `"googleBusiness": {
     "score": <number 0-100>,
